@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feliz Cumpleaños, Tío Monito 💚</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --verde-oscuro:#0f3d2e;
+    --verde-medio:#1f6d4a;
+    --verde-suave:#7cbf94;
+    --menta:#e3f4e8;
+    --crema:#fffdf6;
+    --dorado:#e6b566;
+    --coral:#f2897a;
+    --tinta:#173226;
+    --sombra: 0 20px 40px rgba(15,61,46,0.15);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Quicksand', sans-serif;
+    background:var(--crema);
+    color:var(--tinta);
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+  }
+
+  /* ---------- ENTRANCE GATE ---------- */
+  #gate{
+    position:fixed; inset:0; z-index:999;
+    background:radial-gradient(circle at 50% 30%, var(--verde-medio), var(--verde-oscuro) 70%);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; color:var(--crema); padding:2rem;
+    transition:opacity 1s ease, visibility 1s ease;
+  }
+  #gate.hidden{opacity:0; visibility:hidden; pointer-events:none;}
+  #gate h1{font-size:clamp(1.8rem,5vw,3rem); margin-bottom:0.5rem; font-weight:600;}
+  #gate p{font-size:1.05rem; opacity:.85; margin-bottom:2.2rem; max-width:420px;}
+  #startBtn{
+    background:var(--dorado); color:var(--verde-oscuro); border:none;
+    padding:1rem 2.2rem; font-family:'Quicksand'; font-weight:700; font-size:1.05rem;
+    border-radius:50px; cursor:pointer; display:flex; align-items:center; gap:.6rem;
+    box-shadow:0 10px 30px rgba(0,0,0,0.25);
+    transition:transform .25s ease;
+  }
+  #startBtn:hover{transform:translateY(-3px) scale(1.03);}
+  .gate-icons{display:flex; gap:1.4rem; margin-bottom:1.6rem; font-size:2rem;}
+  .gate-icons span{animation:float 3s ease-in-out infinite;}
+  .gate-icons span:nth-child(2){animation-delay:.4s;}
+  .gate-icons span:nth-child(3){animation-delay:.8s;}
+  @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+
+  /* ---------- FLOATING BACKGROUND DECOR ---------- */
+  .floaters{position:fixed; inset:0; pointer-events:none; z-index:1; overflow:hidden;}
+  .floaters span{position:absolute; opacity:.12; font-size:2.4rem; animation:drift linear infinite;}
+  @keyframes drift{
+    0%{transform:translateY(110vh) rotate(0deg);}
+    100%{transform:translateY(-15vh) rotate(360deg);}
+  }
+
+  section{position:relative; z-index:2; padding:5rem 1.5rem;}
+
+  /* ---------- HERO ---------- */
+  #hero{
+    min-height:92vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; background:linear-gradient(180deg, var(--menta) 0%, var(--crema) 100%);
+  }
+  .eyebrow{
+    font-family:'Quicksand'; letter-spacing:.15em; text-transform:uppercase; font-size:.8rem;
+    color:var(--verde-medio); font-weight:700; margin-bottom:1rem;
+  }
+  #hero h1{
+    font-size:clamp(2.4rem,7vw,4.6rem); color:var(--verde-oscuro); font-weight:700; line-height:1.05;
+    margin-bottom:1.2rem;
+  }
+  #hero h1 em{font-style:italic; color:var(--coral);}
+  #hero p.sub{
+    max-width:600px; font-size:1.15rem; color:var(--tinta); opacity:.85; line-height:1.6; margin-bottom:2rem;
+  }
+  .scoreboard{
+    background:var(--verde-oscuro); color:var(--crema); border-radius:20px; padding:1.4rem 2.2rem;
+    display:flex; align-items:center; gap:1.6rem; box-shadow:var(--sombra); flex-wrap:wrap; justify-content:center;
+  }
+  .scoreboard .team{text-align:center;}
+  .scoreboard .team b{display:block; font-family:'Fraunces'; font-size:1.4rem; color:var(--dorado);}
+  .scoreboard .team small{font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; opacity:.7;}
+  .scoreboard .score{font-family:'Fraunces'; font-size:2rem; font-weight:700; color:var(--crema);}
+
+  /* ---------- SECTION HEADERS ---------- */
+  .sec-head{text-align:center; max-width:640px; margin:0 auto 3rem auto;}
+  .sec-head .eyebrow{color:var(--coral);}
+  .sec-head h2{font-size:clamp(1.8rem,4vw,2.6rem); color:var(--verde-oscuro); font-weight:600;}
+  .sec-head p{color:var(--tinta); opacity:.75; margin-top:.8rem; font-size:1.05rem;}
+  .ball-divider{display:flex; justify-content:center; align-items:center; gap:.8rem; margin:1.2rem 0 2rem;}
+  .ball-divider .line{width:60px; height:2px; background:var(--verde-suave); border-radius:2px;}
+
+  /* ---------- 20 THINGS ---------- */
+  #veinte{background:var(--verde-oscuro); color:var(--crema);}
+  #veinte .sec-head h2{color:var(--crema);}
+  #veinte .sec-head p{color:var(--menta); opacity:.75;}
+  .lineup{
+    max-width:920px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr));
+    gap:1.2rem;
+  }
+  .jersey{
+    background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12);
+    border-radius:16px; padding:1.3rem 1.2rem; display:flex; gap:1rem; align-items:flex-start;
+    transition:transform .25s ease, background .25s ease;
+  }
+  .jersey:hover{transform:translateY(-4px); background:rgba(255,255,255,0.11);}
+  .jersey .num{
+    font-family:'Fraunces'; font-weight:700; font-size:1.5rem; color:var(--dorado); min-width:2.4rem;
+  }
+  .jersey p{font-size:.98rem; line-height:1.45; color:var(--crema); opacity:.92;}
+
+  /* ---------- LETTER ---------- */
+  #carta{background:var(--menta);}
+  .letter-wrap{max-width:720px; margin:0 auto;}
+  .envelope{
+    background:var(--crema); border-radius:22px; box-shadow:var(--sombra); padding:3rem 2.6rem;
+    position:relative; border:1px solid rgba(15,61,46,0.08);
+  }
+  .envelope::before{
+    content:"⚽"; position:absolute; top:-22px; left:30px; font-size:2rem;
+    background:var(--dorado); width:48px; height:48px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; box-shadow:var(--sombra);
+  }
+  .envelope::after{
+    content:"💚"; position:absolute; top:-22px; right:30px; font-size:1.6rem;
+    background:var(--coral); width:48px; height:48px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; box-shadow:var(--sombra);
+  }
+  .envelope h3{font-size:1.6rem; color:var(--verde-oscuro); margin-bottom:1.3rem; text-align:center;}
+  .envelope p{font-size:1.08rem; line-height:1.85; color:var(--tinta); margin-bottom:1.15rem;}
+  .signature{text-align:right; font-family:'Fraunces'; font-style:italic; color:var(--verde-medio); font-size:1.25rem; margin-top:1.5rem;}
+
+  /* ---------- CALMA ---------- */
+  #calma{background:var(--crema); text-align:center;}
+  .breathe-wrap{display:flex; flex-direction:column; align-items:center; gap:1.6rem;}
+  .breathe-circle{
+    width:170px; height:170px; border-radius:50%;
+    background:radial-gradient(circle, var(--verde-suave), var(--verde-medio));
+    display:flex; align-items:center; justify-content:center; color:var(--crema);
+    font-family:'Quicksand'; font-weight:700; font-size:1.1rem; box-shadow:0 0 0 12px var(--menta);
+    animation:breathe 8s ease-in-out infinite;
+  }
+  @keyframes breathe{
+    0%,100%{transform:scale(0.82);}
+    50%{transform:scale(1.15);}
+  }
+  #breathText{transition:opacity .3s ease;}
+  .calm-cards{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.2rem;
+    max-width:820px; margin:2.6rem auto 0; text-align:left;
+  }
+  .calm-card{
+    background:var(--menta); border-radius:16px; padding:1.4rem; border:1px solid rgba(15,61,46,0.08);
+  }
+  .calm-card h4{color:var(--verde-oscuro); margin-bottom:.5rem; font-family:'Fraunces'; font-size:1.1rem;}
+  .calm-card p{font-size:.95rem; color:var(--tinta); opacity:.85; line-height:1.5;}
+  .calm-note{
+    max-width:640px; margin:2.6rem auto 0; background:var(--verde-oscuro); color:var(--crema);
+    border-radius:16px; padding:1.6rem 1.8rem; font-size:1rem; line-height:1.7;
+  }
+
+  /* ---------- MUSIC BAR ---------- */
+  #musicbar{
+    position:fixed; bottom:18px; right:18px; z-index:50; background:var(--verde-oscuro); color:var(--crema);
+    border-radius:16px; padding:.7rem .8rem; display:flex; flex-direction:column; gap:.5rem;
+    box-shadow:var(--sombra); font-size:.75rem; width:300px; max-width:calc(100vw - 24px);
+  }
+  #musicbar .label{line-height:1.2; opacity:.9;}
+  #driveAudio{width:100%; height:60px; border:none; border-radius:8px; background:var(--crema);}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--verde-oscuro); color:var(--crema); text-align:center; padding:3.4rem 1.5rem 2.4rem;
+  }
+  footer h3{font-size:1.4rem; margin-bottom:.6rem; color:var(--dorado);}
+  footer p{opacity:.85; max-width:520px; margin:0 auto 1.4rem; line-height:1.65; font-size:.98rem;}
+  .emergency{
+    display:inline-flex; align-items:center; gap:.6rem; background:var(--coral); color:var(--crema);
+    padding:.9rem 1.8rem; border-radius:50px; font-weight:700; text-decoration:none; font-family:'Quicksand';
+    box-shadow:0 10px 25px rgba(242,137,122,0.35); transition:transform .2s ease;
+  }
+  .emergency:hover{transform:translateY(-3px);}
+  footer .small{margin-top:1.6rem; font-size:.8rem; opacity:.5;}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:900px){
+    .lineup{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));}
+  }
+  @media (max-width:700px){
+    section{padding:3.6rem 1.2rem;}
+    .sec-head{margin-bottom:2.2rem;}
+    .scoreboard{padding:1.1rem 1.4rem; gap:1rem;}
+    .scoreboard .score{font-size:1.6rem;}
+    .envelope{padding:2.4rem 1.6rem;}
+    .envelope h3{font-size:1.3rem;}
+    .envelope p{font-size:1rem; line-height:1.7;}
+  }
+  @media (max-width:600px){
+    .lineup{grid-template-columns:1fr;}
+    .calm-cards{grid-template-columns:1fr;}
+  }
+  @media (max-width:480px){
+    #gate{padding:1.5rem;}
+    #gate p{font-size:.95rem;}
+    #startBtn{padding:.9rem 1.6rem; font-size:.95rem;}
+    .scoreboard{padding:1rem; gap:.7rem;}
+    .scoreboard .team b{font-size:1.1rem;}
+    .envelope{padding:2rem 1.2rem;}
+    .envelope::before,.envelope::after{width:38px; height:38px; font-size:1.3rem; top:-18px;}
+    .breathe-circle{width:130px; height:130px; font-size:1rem; box-shadow:0 0 0 8px var(--menta);}
+    footer{padding:2.6rem 1.2rem 2rem;}
+    .emergency{padding:.8rem 1.4rem; font-size:.92rem;}
+    #musicbar{bottom:12px; right:12px; left:12px; justify-content:center; font-size:.8rem;}
+  }
+  @media (max-width:360px){
+    #hero h1{font-size:2rem;}
+    .jersey{padding:1.1rem 1rem;}
+  }
+</style>
+</head>
+<body>
+
+<!-- floating background decor -->
+<div class="floaters" id="floaters"></div>
+
+<!-- entrance gate -->
+<div id="gate">
+  <div class="gate-icons"><span>⚽</span><span>💚</span><span>⚽</span></div>
+  <h1>Para ti, Tío Monito</h1>
+  <p>Preparé algo desde el corazón. Toca el botón para abrir!</p>
+  <button id="startBtn">💚 Toca para comenzar ⚽</button>
+</div>
+
+<!-- reproductor oficial de Google Drive para el mp3 compartido -->
+<div id="musicbar">
+  <span class="label">🎶 Tu Sangre en Mi Cuerpo — dale play aquí porfis👇💚</span>
+  <iframe id="driveAudio"
+    src="https://drive.google.com/file/d/133okQxhkqU4hKoiLZSLlMQmNkzvrrEvp/preview"
+    allow="autoplay" title="Tu Sangre en Mi Cuerpo"></iframe>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="eyebrow">27 de Julio • Un día muy especial</div>
+  <h1>¡Feliz Cumpleaños,<br><em>Tío Monito!</em> 💚⚽</h1>
+  <p class="sub">Hoy quiero que sepas todo lo que significas para mí. No eres solo mi tío: eres mi segundo papá, mi primer héroe, la persona que me enseñó cómo debe amarme un hombre bueno. Esta página es mi manera de decírtelo.</p>
+  <div class="scoreboard">
+    <div class="team"><small>Local</small><b>Amor</b></div>
+    <div class="score">∞ — 0</div>
+    <div class="team"><small>Visitante</small><b>Distancia</b></div>
+  </div>
+</section>
+
+<!-- 20 COSAS -->
+<section id="veinte">
+  <div class="sec-head">
+    <div class="eyebrow">La alineación titular de mi corazón</div>
+    <h2>20 cosas que amo de ti</h2>
+    <p>Como un buen equipo, cada una de estas razones tiene un puesto fijo, insustituible, en mi vida.</p>
+  </div>
+  <div class="lineup" id="lineup"></div>
+</section>
+
+<!-- CARTA -->
+<section id="carta">
+  <div class="sec-head">
+    <div class="eyebrow">Con toda mi alma</div>
+    <h2>Una carta para ti</h2>
+  </div>
+  <div class="ball-divider"><div class="line"></div>⚽<div class="line"></div></div>
+  <div class="letter-wrap">
+    <div class="envelope">
+      <h3>Para quien llenó de papá mis primeros años, sin que nadie se lo pidiera</h3>
+      <p>Tío Monito: hay personas que llegan a la familia por sangre, y hay otras que se ganan el lugar de padre con presencia, con paciencia y con amor todos los días. Tú eres de esas segundas. Desde que era niña, fuiste la primera figura masculina que me hizo sentir cuidada, protegida y valiosa. El primer hombre que correspondió mi cariño sin condiciones, que me abrazó cuando lo necesité y me sostuvo sin pedir nada a cambio. Eso no se olvida. Eso se queda grabado para siempre.</p>
+      <p>Han pasado los años y muchas cosas han cambiado, pero lo que siento por ti sigue intacto: te amo, te aprecio, te adoro. Eres, pese a todo, como un segundo papá para mí, y quiero que lo sepas hoy y siempre, no solo en tu cumpleaños.</p>
+      <p>Sé que a veces la vida me ha hecho descuidarme, alejarme un poco o desaparecer por temporadas. Pero quiero que tengas clarísimo algo: eso nunca ha sido porque no piense en ti. Siempre pienso en ti. Siempre estás en un lugar especial de mi cabeza y de mi corazón, incluso cuando no lo demuestro como debería.</p>
+      <p>Quiero que sepas que pase lo que pase, yo voy a estar aquí para ti, así como tú estuviste para mí. Y si me lo permites, espero seguir siendo tu niña toda la vida, sin importar cuántos años pasen ni cuánto crezcamos los dos.</p>
+      <p>Feliz cumpleaños, mi Tío Monito. Gracias por ser mi primer caballero, mi ejemplo de hombre bueno. Te amo con todo lo que soy.</p>
+      <div class="signature">Con todo mi amor, tu sofi de siempre 💚</div>
+    </div>
+  </div>
+</section>
+
+<!-- CALMA -->
+<section id="calma">
+  <div class="sec-head">
+    <div class="eyebrow">Un espacio solo para ti</div>
+    <h2>Cuando te sientas triste, mal o estresado</h2>
+    <p>Respira conmigo un momento. Esto es para regularte y sentirte mejor, aunque sea un poquito.</p>
+  </div>
+  <div class="breathe-wrap">
+    <div class="breathe-circle"><span id="breathText">Inhala</span></div>
+  </div>
+  <div class="calm-cards">
+    <div class="calm-card">
+      <h4>🌿 Recuerda</h4>
+      <p>Lo que sientes es válido. No tienes que resolverlo todo hoy, solo respirar y estar.</p>
+    </div>
+    <div class="calm-card">
+      <h4>⚽ Piensa en tu equipo</h4>
+      <p>No estás solo. Hay personas, como yo, que siempre vamos a estar de tu lado, en las buenas y en las malas.</p>
+    </div>
+    <div class="calm-card">
+      <h4>💚 Un paso a la vez</h4>
+      <p>Tómate un vaso de agua, estira el cuerpo, sal a caminar un momento. Pequeños gestos calman grandes tormentas.</p>
+    </div>
+  </div>
+  <div class="calm-note">
+    Tío, si algún día te sientes mal, estresado o triste, quiero que sepas que puedes marcarme sin pensarlo dos veces. No importa la hora ni el motivo. Estoy para ti, así como tú siempre estuviste para mí.
+  </div>
+</section>
+
+<footer>
+  <h3>Siempre estoy para ti 💚⚽</h3>
+  <p>Si en algún momento necesitas hablar, desahogarte o simplemente escuchar una voz que te quiere, aquí estoy. Marca cuando quieras, para lo que sea.</p>
+  <a class="emergency" href="tel:3054154137">📞 Llámame: 305 415 4137</a>
+  <p class="small" style="margin-top:1.6rem;">Hecho con todo mi amor para el mejor tío del mundo.</p>
+</footer>
+
+<script>
+  // floating background icons
+  const icons = ['⚽','💚','⚽','💚','⚽'];
+  const floaters = document.getElementById('floaters');
+  for(let i=0;i<18;i++){
+    const el = document.createElement('span');
+    el.textContent = icons[i % icons.length];
+    el.style.left = Math.random()*100 + 'vw';
+    el.style.fontSize = (1.2 + Math.random()*1.8) + 'rem';
+    el.style.animationDuration = (10 + Math.random()*14) + 's';
+    el.style.animationDelay = (Math.random()*10) + 's';
+    floaters.appendChild(el);
+  }
+
+  // 20 things content
+  const cosas = [
+    "Por ser el primer hombre que me hizo sentir protegida, mucho antes de entender lo que eso significaba.",
+    "Por asumir un rol de papá sin que nadie te lo pidiera, solo porque tu amor es así de grande.",
+    "Por cada abrazo que llegó justo cuando más lo necesitaba.",
+    "Por enseñarme, sin decir una palabra, cómo debe tratarme un hombre bueno.",
+    "Por tu risa, que siempre ha sido una forma de sentirme en casa.",
+    "Por tu paciencia, incluso cuando yo no la merecía del todo.",
+    "Por nunca soltarme la mano, aunque la vida nos alejara por temporadas.",
+    "Por ser mi ejemplo de fortaleza sin dejar de ser tierno.",
+    "Por hacerme sentir tu niña, sin importar cuántos años cumpla.",
+    "Por cada consejo que guardo como un tesoro.",
+    "Por tu manera de cuidar sin esperar nada a cambio.",
+    "Por ser mi refugio en los días grises.",
+    "Por creer en mí incluso cuando yo dudaba.",
+    "Por tu corazón noble, que a veces olvidas cuidar.",
+    "Por enseñarme el valor de la lealtad y la constancia.",
+    "Por cada momento en que tu presencia bastó para calmarme.",
+    "Por ser el primer 'caballero' que correspondió mi cariño sin condiciones.",
+    "Por seguir aquí, pase lo que pase, año tras año.",
+    "Por ser mi figura masculina cuando más la necesité.",
+    "Por simplemente ser tú: mi Tío Monito, mi papá del corazón."
+  ];
+  const lineup = document.getElementById('lineup');
+  cosas.forEach((c,i)=>{
+    const div = document.createElement('div');
+    div.className = 'jersey';
+    div.innerHTML = `<div class="num">${String(i+1).padStart(2,'0')}</div><p>${c}</p>`;
+    lineup.appendChild(div);
+  });
+
+  // breathing text sync (8s cycle: 4s inhale, 4s exhale)
+  const breathText = document.getElementById('breathText');
+  setInterval(()=>{
+    breathText.textContent = breathText.textContent === 'Inhala' ? 'Exhala' : 'Inhala';
+  }, 4000);
+
+  // ---------- MÚSICA (reproductor de Google Drive) ----------
+  const gate = document.getElementById('gate');
+  const startBtn = document.getElementById('startBtn');
+
+  startBtn.addEventListener('click', ()=>{
+    gate.classList.add('hidden');
+  });
+</script>
+</body>
+</html>
